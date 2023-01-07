@@ -3,7 +3,7 @@
 
 ## Lietošana
 
-- /cepums 
+### /cepums 
 #### iedod spēlētājam cepumu
 ### /piens
 #### iedod spēlētājam pienu
