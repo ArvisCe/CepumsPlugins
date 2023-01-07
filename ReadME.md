@@ -4,10 +4,10 @@
 ## Lietošana
 
 - /cepums 
-### iedod spēlētājam cepumu
-- /piens
-### iedod spēlētājam pienu
-- /ctests
-### pārbauda, vai plugin strādā
-- /cversija
-### pārbauda plugin versiju
+#### iedod spēlētājam cepumu
+### /piens
+#### iedod spēlētājam pienu
+### /ctests
+#### pārbauda, vai plugin strādā
+### /cversija
+#### pārbauda plugin versiju
