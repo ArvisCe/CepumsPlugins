@@ -6,24 +6,18 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import org.bukkit.Bukkit;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
-import org.bukkit.configuration.file.FileConfiguration;
-
-import static org.bukkit.Bukkit.getLogger;
+import java.io.FileWriter;
 
 public class commands implements CommandExecutor{
     List CookieCommandP = new ArrayList<String>();
@@ -35,13 +29,14 @@ public class commands implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
+
         if(command.getName().equalsIgnoreCase("Ctests"))
         {
             player.sendMessage(ChatColor.GREEN + "plugins strādā!");
         }
         if(command.getName().equalsIgnoreCase("Cversija"))
         {
-            player.sendMessage(ChatColor.GREEN + "Version: " + ChatColor.BLUE + "v2.5");
+            player.sendMessage(ChatColor.GREEN + "Version: " + ChatColor.BLUE + "v3.0");
         }
 
 
@@ -50,45 +45,27 @@ public class commands implements CommandExecutor{
 
         if(command.getName().equalsIgnoreCase("cepums"))
         {
-            long CoolDown =  plugin.getConfig().getLong("CepumaLaiks");
-            if(CookieCommandP.contains(player))
+            FileAction(player,"none");
+            Long CoolDown =  plugin.getConfig().getLong("CepumaLaiks");
+            Date date = new Date();
+            Long currentTime = date.getTime();
+            String cookieTimeSTR = GetFileLine(1,player);
+            long cookieTime = Long.parseLong(cookieTimeSTR);
+            if( ((cookieTime - currentTime)/1000) + CoolDown/1000 <= 0 )
             {
-                int index = CookieCommandP.indexOf(player);
-                Date date = new Date();
-                long currentTime = date.getTime();
-                long time = (long) CookieCommandT.get(index);
-                if(  ((time-currentTime)/1000)+CoolDown/1000 <= 0   )
-                {
-                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("SanemCepumuZina").replace("%speletajs%", player.getName()));
-                    CookieCommandT.add(currentTime);
-                    CookieCommandP.add(player);
-                    CookieCommandT.remove(index);
-                    CookieCommandP.remove(index);
-                    ItemStack cookies = new ItemStack(Material.COOKIE);
-                    cookies.setAmount(plugin.getConfig().getInt("CepumuDaudzums"));
-                    player.getInventory().addItem(cookies);
-                }
-                else
-                {
-                    String timeStr = "" + (((time-currentTime)/1000)+CoolDown/1000);
-                    player.sendMessage(ChatColor.RED + plugin.getConfig().getString("CepumaLaikaZina")
-                            .replace("%laiks%", timeStr)
-                            .replace("%speletajs%", player.getName()));
-                }
+                ItemStack milk = new ItemStack(Material.COOKIE);
+                milk.setAmount(plugin.getConfig().getInt("CepumuDaudzums"));
+                player.getInventory().addItem(milk);
+                player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("SanemCepumuZina").replace("%speletajs%", player.getName()));
+                FileAction(player,"cepums");
             }
             else
             {
-                player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("SanemCepumuZina").replace("%speletajs%", player.getName()));
-                ItemStack cookies = new ItemStack(Material.COOKIE);
-                cookies.setAmount(plugin.getConfig().getInt("CepumuDaudzums"));
-                player.getInventory().addItem(cookies);
-                CookieCommandP.add(player);
-
-                Date date = new Date();
-                long timeMilli = date.getTime();
-                CookieCommandT.add(timeMilli);
+                String timeStr = "" + (((cookieTime-currentTime)/1000)+CoolDown/1000);
+                player.sendMessage(ChatColor.RED + plugin.getConfig().getString("CepumaLaikaZina")
+                        .replace("%laiks%", timeStr)
+                        .replace("%speletajs%", player.getName()));
             }
-
         }
 
 
@@ -97,46 +74,96 @@ public class commands implements CommandExecutor{
 
         if(command.getName().equalsIgnoreCase("piens"))
         {
-            long CoolDown =  plugin.getConfig().getLong("PienaLaiks");
-            if(MilkCommandP.contains(player))
+            FileAction(player,"none");
+            Long CoolDown =  plugin.getConfig().getLong("PienaLaiks");
+            Date date = new Date();
+            Long currentTime = date.getTime();
+            String milkTimeSTR = GetFileLine(2,player);
+            long milkTime = Long.parseLong(milkTimeSTR);
+            if( ((milkTime - currentTime)/1000) + CoolDown/1000 <= 0 )
             {
-                int index = MilkCommandP.indexOf(player);
-                Date date = new Date();
-                long currentTime = date.getTime();
-                long time = (long) MilkCommandT.get(index);
-                if(  ((time-currentTime)/1000)+CoolDown/1000 <= 0   )
-                {
-                    player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("SanemPienuZina").replace("%speletajs%", player.getName()));
-                    MilkCommandT.add(currentTime);
-                    MilkCommandP.add(player);
-                    MilkCommandT.remove(index);
-                    MilkCommandP.remove(index);
-                    ItemStack milk = new ItemStack(Material.MILK_BUCKET);
-                    milk.setAmount(plugin.getConfig().getInt("PienaDaudzums"));
-                    player.getInventory().addItem(milk);
-                }
-                else
-                {
-                    String timeStr = "" + (((time-currentTime)/1000)+CoolDown/1000);
-                    player.sendMessage(ChatColor.RED + plugin.getConfig().getString("PienaLaikaZina")
-                            .replace("%laiks%", timeStr)
-                            .replace("%speletajs%", player.getName()));
-                }
-            }
-            else
-            {
-                player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("SanemPienuZina").replace("%speletajs%", player.getName()));
                 ItemStack milk = new ItemStack(Material.MILK_BUCKET);
                 milk.setAmount(plugin.getConfig().getInt("PienaDaudzums"));
                 player.getInventory().addItem(milk);
-                MilkCommandP.add(player);
-
-                Date date = new Date();
-                long timeMilli = date.getTime();
-                MilkCommandT.add(timeMilli);
+                player.sendMessage(ChatColor.GREEN + plugin.getConfig().getString("SanemPienuZina").replace("%speletajs%", player.getName()));
+                FileAction(player,"piens");
             }
-
+            else
+            {
+                String timeStr = "" + (((milkTime-currentTime)/1000)+CoolDown/1000);
+                player.sendMessage(ChatColor.RED + plugin.getConfig().getString("PienaLaikaZina")
+                        .replace("%laiks%", timeStr)
+                        .replace("%speletajs%", player.getName()));
+            }
         }
         return false;
+    }
+    public void FileAction(Player player, String action)
+    {
+        try
+        {
+            Date date = new Date();
+            long timeMilli = date.getTime();
+            String path = "plugins/Cepums/playerData/"+player.getName()+".txt";
+            File file = new File(path);
+            if (file.createNewFile())
+            {
+                // created file if it didn't exist
+                FileWriter myWriter = new FileWriter(path);
+                myWriter.write(player.getName());
+                myWriter.write(System.getProperty( "line.separator" ));
+                myWriter.write("0");
+                myWriter.write(System.getProperty( "line.separator" ));
+                myWriter.write("0");
+                myWriter.close();
+            }
+
+            if(action == "cepums")
+            {
+                String old = GetFileLine(2,player);
+                PrintWriter pw = new PrintWriter("filepath.txt");
+                pw.close();
+
+
+                FileWriter myWriter = new FileWriter(path);
+                myWriter.write(player.getName());
+                myWriter.write(System.getProperty( "line.separator" ));
+                myWriter.write(Long.toString(timeMilli));
+                myWriter.write(System.getProperty( "line.separator" ));
+                myWriter.write(old);
+                myWriter.close();
+            }
+            if(action == "piens")
+            {
+                String old = GetFileLine(1,player);
+                PrintWriter pw = new PrintWriter("filepath.txt");
+                pw.close();
+
+
+                FileWriter myWriter = new FileWriter(path);
+                myWriter.write(player.getName());
+                myWriter.write(System.getProperty( "line.separator" ));
+                myWriter.write(old);
+                myWriter.write(System.getProperty( "line.separator" ));
+                myWriter.write(Long.toString(timeMilli));
+                myWriter.close();
+            }
+        }
+        catch(IOException e)
+        {
+        }
+    }
+    public String GetFileLine(int line, Player player)
+    {
+        try
+        {
+            String returned = Files.readAllLines(Paths.get("plugins/Cepums/playerData/" + player.getName() + ".txt")).get(line);
+            return returned;
+        }
+        catch (IOException e)
+        {
+            // error
+        }
+        return "0";
     }
 }

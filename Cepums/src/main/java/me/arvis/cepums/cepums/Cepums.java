@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.List;
 
 public final class Cepums extends JavaPlugin {
@@ -15,6 +16,9 @@ public final class Cepums extends JavaPlugin {
         // Plugin startup logic
     saveDefaultConfig();
     config = getConfig();
+
+    new File("plugins/Cepums/playerData").mkdirs();
+
     getLogger().info("Plugin ieslēdzas");
     getCommand("Ctests").setExecutor(new commands());
     getCommand("Cversija").setExecutor(new commands());

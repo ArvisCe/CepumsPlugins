@@ -6,7 +6,7 @@
 
     <groupId>me.arvis.cepums</groupId>
     <artifactId>cepums</artifactId>
-    <version>2.5</version>
+    <version>3.0</version>
     <packaging>jar</packaging>
 
     <name>Cepums</name>
