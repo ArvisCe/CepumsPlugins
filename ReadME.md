@@ -12,4 +12,11 @@
 ### /cversija
 #### pārbauda plugin versiju
 
-## [Download latest 3.0](/ArvisCe/CepumsPlugins/raw/main/Cepums/target/cepums-3.0.jar)
+### [Download latest 3.0](https://github.com/ArvisCe/CepumsPlugins/raw/main/Cepums/target/cepums-3.0.jar)
+
+
+## other versions
+
+
+### [Download latest 3.0](https://github.com/ArvisCe/CepumsPlugins/raw/main/Cepums/target/cepums-2.5.jar)
+### [Download latest 3.0](https://github.com/ArvisCe/CepumsPlugins/raw/main/Cepums/target/cepums-1.1.jar)
