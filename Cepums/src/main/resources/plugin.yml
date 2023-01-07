@@ -1,0 +1,16 @@
+name: Cepums
+version: '${project.version}'
+main: me.arvis.cepums.cepums.Cepums
+api-version: 1.19
+authors: [ arvis ]
+description: Katras 5 minūtes iedod tev cepumu :)
+website: https://tiktok.com/@Arv.is
+commands:
+  Ctests:
+    description: Pārbauda, vai cepums plugin strādā!
+  Cversija:
+    description: Pārbauda, cepuma plugina versiju!
+  cepums:
+    description: Dāvā tev 1 cepumus!
+  piens:
+    description: saņem pienu!
