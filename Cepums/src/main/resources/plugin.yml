@@ -8,9 +8,25 @@ website: https://tiktok.com/@Arv.is
 commands:
   Ctests:
     description: Pārbauda, vai cepums plugin strādā!
+    permission: cepums.tests
+    permission-message: Atvaino! Tu nedrīksti testēt pluginu :(.
   Cversija:
     description: Pārbauda, cepuma plugina versiju!
+    permission: cepums.versija
+    permission-message: Atvaino! Tu nedrīksti apskatīt plugina versiju :(.
   cepums:
     description: Dāvā tev 1 cepumus!
+    permission: cepums.cepums
+    permission-message: Atvaino! Tu nedrīksti saņemt cepumus :(.
   piens:
     description: saņem pienu!
+    permission-message: Atvaino! Tu nedrīksti saņemt pienu :(.
+permissions:
+  cepums.cepums:
+    default: true
+  cepums.piens:
+    default: true
+  cepums.versija:
+    default: op
+  cepums.tests:
+    default: op

@@ -1,0 +1,23 @@
+# Izmaini šo, ja vēlies mainīt ziņu, kas parādās kad saņem cepumu
+SanemCepumuZina: 'Ludzu, tev cepums, %speletajs%!'
+
+# Šis kontrolē to, cik ilgi jāgaida pirms saņem cepumu ( milisekundēs )
+CepumaLaiks: 30000
+
+# maini šo, ja vēlies, ka tavs spēlētājs saņem citu daudzumu cepumu
+CepumuDaudzums: 1
+
+# Maini šo, ja vēlies nomainīt ziņu, kas parādās, kad saņem cepumu
+CepumaLaikaZina: "%speletajs% jāgaida vēl %laiks% sekundes, lai saņemtu cepumus!"
+
+# Izmaini šo, ja vēlies mainīt ziņu, kas parādās kad saņem pienu
+SanemPienuZina: 'Še, tev piens, %speletajs%!'
+
+# Šis kontrolē to, cik ilgi jāgaida pirms saņem pienu ( milisekundēs )
+PienaLaiks: 30000
+
+# maini šo, ja vēlies, ka tavs spēlētājs saņem citu daudzumu cepumu
+PienaDaudzums: 1
+# Maini šo, ja vēlies nomainīt ziņu, kas parādās, kad saņem pienu
+PienaLaikaZina: "%speletajs% jāgaida vēl %laiks% sekundes, lai saņemtu pienu"
+
